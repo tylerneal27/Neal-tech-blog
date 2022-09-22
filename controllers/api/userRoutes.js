@@ -40,7 +40,14 @@ router.post('/login', async (req, res) => {
     try {
       const user = await User.create(req.body);
 
-      res.json(user)
+      
+
+      req.session.save(() => {
+        req.session.user_id = user.id;
+        req.session.logged_in = true;
+        
+        res.json(user)
+      });
     } catch (err) {
       res.status(400).json(err)
     }
