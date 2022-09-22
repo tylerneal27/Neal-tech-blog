@@ -35,6 +35,16 @@ router.post('/login', async (req, res) => {
       res.status(400).json(err);
     }
   });
+
+  router.post('/signup', async (req, res) => {
+    try {
+      const user = await User.create(req.body);
+
+      res.json(user)
+    } catch (err) {
+      res.status(400).json(err)
+    }
+  })
   
   router.post('/logout', (req, res) => {
     if (req.session.logged_in) {
